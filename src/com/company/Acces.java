@@ -1,5 +1,7 @@
 package com.company;
 
+import org.javatuples.Pair;
+
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -9,7 +11,7 @@ public class Acces {
     String password;
     String status;
     Integer age;
-    Integer id;
+    Long id;
 
     public Acces(String prenom, String login, String password, String status, Integer age) throws SQLException, ClassNotFoundException {
         this.prenom = prenom;
@@ -18,7 +20,9 @@ public class Acces {
         this.status = status;
         this.age = age;
         DAOAcces db = new DAOAcces();
-        db.setUser(this.prenom,this.login,this.password,this.status,this.age);
+        Pair res = db.setUser(this.prenom, this.login, this.password, this.status, this.age);
+        this.id = (Long) res.getValue1();
+        System.out.println(res);
     }
 
     public String getPrenom() {
@@ -72,13 +76,13 @@ public class Acces {
         this.age = age;
     }
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) throws SQLException, ClassNotFoundException {
+    public void setId(Long id) throws SQLException, ClassNotFoundException {
         DAOAcces db = new DAOAcces();
-        String i = Integer.toString(id);
+        String i = Long.toString(id);
         db.updateUserValue("id", i, this.id);
         this.id = id;
     }
