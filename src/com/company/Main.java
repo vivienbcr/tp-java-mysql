@@ -6,10 +6,9 @@ public class Main {
         System.out.println("Hello world!");
         try {
             DAOAcces db = new DAOAcces();
+            db.setUser("vivien","vivienbcr","azertyddd","intermitent",12);
             db.listUser();
-            db.listUser();
-            db.listUser();
-            db.listUser();
+            db.deleteUser(13);
         }
 /*        catch(ClassNotFoundException e) {
             System.err.println("Driver non chargé !");  e.printStackTrace();

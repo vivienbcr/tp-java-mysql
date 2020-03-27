@@ -14,7 +14,15 @@ public class DAOAcces {
     public DAOAcces() throws SQLException, ClassNotFoundException {
         Class.forName(strClassName);
     }
-
+    /**
+     * setUser set new user into database
+     * @param prenom user first name
+     * @param login user login
+     * @param password user password
+     * @param status user status
+     * @param age user age
+     * @throws SQLException
+     */
     public void setUser(String prenom, String login, String password, String status, Integer age) throws SQLException {
         connect();
 
@@ -26,7 +34,21 @@ public class DAOAcces {
 
         disconnect();
     }
+    /**
+     * deleteUser delete user for given ID
+     * @param id user id
+     * @throws SQLException
+     */
+    public void deleteUser(Integer id) throws SQLException {
+    connect();
+        statement.executeUpdate("delete from Acces where id = '"+id+"'");
+    disconnect();
+    }
 
+    /**
+     * listUser print list of user
+     * @throws SQLException
+     */
     public void listUser() throws SQLException {
 
         connect();
