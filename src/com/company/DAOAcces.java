@@ -1,5 +1,6 @@
 package com.company;
 
+import java.lang.reflect.Type;
 import java.sql.*;
 
 public class DAOAcces {
@@ -11,9 +12,26 @@ public class DAOAcces {
     Connection conn;
     Statement statement;
 
+
+
     public DAOAcces() throws SQLException, ClassNotFoundException {
         Class.forName(strClassName);
     }
+    /**
+     * updateUserValue update given user property
+     * @param property property in db
+     * @param value value for this property
+     * @throws SQLException
+     */
+    public Integer updateUserValue(String property, String value, Integer uid) throws SQLException {
+        connect();
+        statement.executeUpdate("update Acces SET "+property+" = '"+value+"' where id = "+uid+"");
+        disconnect();
+        return 1;
+    }
+
+
+
     /**
      * setUser set new user into database
      * @param prenom user first name
@@ -23,16 +41,19 @@ public class DAOAcces {
      * @param age user age
      * @throws SQLException
      */
-    public void setUser(String prenom, String login, String password, String status, Integer age) throws SQLException {
+    public Integer setUser(String prenom, String login, String password, String status, Integer age) throws SQLException {
         connect();
 
 
         String strInsert = "INSERT INTO Acces "
                 + "(prenom, login, password, statut,age) "
                 + "VALUES ('"+prenom+"', '"+login+"', '"+password+"','"+status+"',"+age+");";
+
         statement.executeUpdate(strInsert);
 
         disconnect();
+
+        return 1;
     }
     /**
      * deleteUser delete user for given ID
